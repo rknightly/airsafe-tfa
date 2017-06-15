@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var backgroundMessageReceived = false
+    var wasNotificationSent = false // Whether a notification was sent during the current background session
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let settings = UIUserNotificationSettings(types: UIUserNotificationType.alert, categories: nil)
@@ -32,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        wasNotificationSent = false
         RKMQTTConnectionManager.setDelegate(delegate: self)
     }
     
@@ -43,6 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         localNotification.alertBody = "Unsafe Gas Levels Detected: " + String(RKMathOperations.shortened(num: ppm))  + " ppm Methane"
         localNotification.fireDate = NSDate(timeIntervalSinceNow: 1) as Date
         UIApplication.shared.scheduleLocalNotification(localNotification)
+        
+        wasNotificationSent = true
     }
     
     /// Opens an MQTT connection if none exists and waits for a few seconds before completing
@@ -97,14 +101,12 @@ extension AppDelegate: CocoaMQTTDelegate {
     func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16 ) {
         // Only send one notification even if multiple messages are received during fetch
         print("Message reveived")
-        if !backgroundMessageReceived {
-            if let msgDouble = Double(message.string!) {
-                if RKConditions.getConditionWithReading(ppm: msgDouble).displayMessage == RKConditions.getDangerousCondition().displayMessage {
-                    sendNotification(ppm: RKMathOperations.shortened(num: msgDouble))
-                }
+        if let msgDouble = Double(message.string!) {
+            if RKConditions.isDangerous(ppm: msgDouble) && !wasNotificationSent {
+                sendNotification(ppm: RKMathOperations.shortened(num: msgDouble))
             }
-            backgroundMessageReceived = true
         }
+        backgroundMessageReceived = true
     }
     
     // Optional ssl CocoaMQTTDelegate

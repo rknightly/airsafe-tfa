@@ -110,4 +110,15 @@ class RKConditions {
     public static func getDangerousCondition() -> RKCondition {
         return RKConditions.dangerous
     }
+    
+    /// Return whether a certain sensor reading indicates a dangerous condition
+    ///
+    /// - Parameter ppm: the recorded concentration of the gas (Methane)
+    /// - Returns: boolean denoting whether or not it is dangerous
+    public static func isDangerous(ppm: Double) -> Bool {
+        let recordedCondition = RKConditions.getConditionWithReading(ppm: ppm).displayMessage
+        let dangerousCondition = RKConditions.getDangerousCondition().displayMessage
+        
+        return recordedCondition == dangerousCondition
+    }
 }
