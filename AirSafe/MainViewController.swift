@@ -461,7 +461,8 @@ extension MainViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         chart.xLabelsFormatter = {(labelIndex: Int, labelValue: Float) -> String in
             return labelsAsString[labelIndex]
         }
-        chart.xLabelsTextAlignment = .left
+        chart.xLabelsTextAlignment = .center
+        chart.yLabels = [0, 1, 2, 3, 4]
         series.area = true
         chart.add(series)
         
@@ -481,7 +482,7 @@ extension MainViewController: MKMapViewDelegate, CLLocationManagerDelegate {
             let widthConstraint = NSLayoutConstraint(item: popUpView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 325)
             popUpView.addConstraint(widthConstraint)
             
-            let heightConstraint = NSLayoutConstraint(item: popUpView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100)
+            let heightConstraint = NSLayoutConstraint(item: popUpView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 130)
             popUpView.addConstraint(heightConstraint)
             view.detailCalloutAccessoryView = popUpView
         }
