@@ -25,10 +25,9 @@ Download and open in Xcode via AirSafe.xcworkspace. This is necessary because of
 
 Because I checked in the CocoaPod files to version control, you will not have to run 'pod install', as all of the files will already be present.
 
-However, do note that there is one file not checked into public version control, Secrets.swift. This is for security purposes and in order to successfully build the app, the file will need to be obtained by requesting it from the repository owner.
+However, do note that there is one file not checked into public version control, Secrets.swift. In order to successfully build the app, the file will need to be obtained by requesting it from the repository owner.
 
 ## Future goals
 
-* Adding push notifications when dangerous conditions are observed by a nearby sensor
-* Adding unit test coverage
+* Adding unit test coverage 
 * Creating an Android version
