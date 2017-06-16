@@ -2,6 +2,10 @@
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 Secrets.swift
+*.xcuserstate
+project.xcworkspace/
+xcuserdata/
+
 ## Build generated
 build/
 DerivedData/
