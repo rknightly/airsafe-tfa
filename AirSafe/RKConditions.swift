@@ -28,7 +28,7 @@ class RKConditions {
     private static var good: RKCondition {
         let color = UIColor(red: 0, green: 153/255, blue: 102/255, alpha: 1)
         return RKCondition(
-            displayMessage: "Good",
+            displayMessage: "Safe",
             imageName: "goodConditionIcon",
             displayColor: color)
     }
@@ -36,7 +36,7 @@ class RKConditions {
     /// A condition denoting that the air quality is not great, but still not at a worrying level of danger
     private static var okay: RKCondition {
         let color = UIColor(red: 231/255, green: 1, blue: 48/255, alpha: 1)
-        return RKCondition(displayMessage: "Okay",
+        return RKCondition(displayMessage: "Safe",
                            imageName: "okayConditionIcon",
                            displayColor: color)
     }
@@ -45,7 +45,7 @@ class RKConditions {
     /// A condition denoting that the concentration of gases in the atmosphere are at serious and dangerous levels, to the point where action should be taken
     private static var dangerous: RKCondition {
         let color = UIColor(red: 224/255, green: 226/255, blue: 3/255, alpha: 1)
-        return RKCondition(displayMessage: "Dangerous",
+        return RKCondition(displayMessage: "Unsafe",
                            imageName: "dangerousConditionIcon",
                            displayColor: color)
     }
@@ -82,7 +82,7 @@ class RKConditions {
     public static func getConditionWithReading(ppm: Double) -> RKCondition {
         let condition: RKCondition!
         
-        if ppm < 5.0 {
+        if ppm < 10.0 {
             condition = RKConditions.good 
         } else if ppm < 5000.0 {
             condition = RKConditions.okay
