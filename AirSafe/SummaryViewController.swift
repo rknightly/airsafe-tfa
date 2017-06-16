@@ -14,40 +14,28 @@ import CoreLocation
 import MapKit
 
 /// The view controller that handles the main view
-class MainViewController: UIViewController {
+class SummaryViewController: UIViewController {
     
-    @IBOutlet var sensorDescriptionLabel: UILabel!
-    @IBOutlet var ppmLabel: UILabel!
+    
     @IBOutlet var statusLabel: UILabel!
-    @IBOutlet var sensorDistanceLabel: UILabel!
+    
     @IBOutlet var statusImageView: UIImageView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     var mqttDataReceived = false
     
-    var nearestSensorDistance: Double!
     var userHasConnection: Bool!
     var currentCondition: RKCondition?
     var currentSensorTopic: String?
     
-    let manager = CLLocationManager()
-    var hasCenteredOnUser = false
-    var userLocation: CLLocation!
-    @IBOutlet var map: MKMapView!
+    
     
     /// Initialize the view
     override func viewDidLoad() {
         super.viewDidLoad()
         startActivityIndicator()
         setupMQTT()
-        loadMap()
         addNotificationListeners()
-    }
-    
-    /// Called after the view appears
-    override func viewDidAppear(_ animated: Bool) {
-        // Load the sensors after the view appears so that the view is visible while the data is loading
-        self.loadSensorLocations()
     }
     
     /// Initially setup the mqtt connection
@@ -65,7 +53,7 @@ class MainViewController: UIViewController {
     
     /// Add the notification listeners
     func addNotificationListeners() {
-        NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.makeMQTTDelegate),
+        NotificationCenter.default.addObserver(self, selector: #selector(SummaryViewController.makeMQTTDelegate),
                                                name: NSNotification.Name(rawValue: "returnMQTTDelegateResponsibility"),
                                                object: nil)
     }
@@ -151,7 +139,7 @@ class MainViewController: UIViewController {
 }
 
 // MARK: - CocoaMQTTDelegate
-extension MainViewController: CocoaMQTTDelegate {
+extension SummaryViewController: CocoaMQTTDelegate {
     func mqtt(_ mqtt: CocoaMQTT, didConnect host: String, port: Int) {
         print("didConnect \(host):\(port)")
         if let topic = currentSensorTopic {
@@ -212,11 +200,11 @@ extension MainViewController: CocoaMQTTDelegate {
 }
 
 // MARK: - MKMapViewDelegate, CLLocationManagerDelegate
-extension MainViewController: MKMapViewDelegate, CLLocationManagerDelegate {
+extension SummaryViewController: MKMapViewDelegate, CLLocationManagerDelegate {
     /// Initialize the map view
     func loadMap() {
-        map.delegate = self
-        setUpMap()
+//        map.delegate = self
+//        setUpMap()
     }
     
     /// Start requesting user location and set map settings

@@ -202,7 +202,8 @@
 		94AF26891ED8B5A500DDCCDD /* AirSafe_TFATests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AF26881ED8B5A500DDCCDD /* AirSafe_TFATests.swift */; };
 		94AF26951ED8B76400DDCCDD /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94AF26941ED8B76400DDCCDD /* CoreLocation.framework */; };
 		94C10AA81EE63E610099646E /* RKClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C10AA71EE63E610099646E /* RKClient.swift */; };
-		94D9969F1ED9E168008DC6A5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D9969E1ED9E168008DC6A5 /* MainViewController.swift */; };
+		94D9969F1ED9E168008DC6A5 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D9969E1ED9E168008DC6A5 /* SummaryViewController.swift */; };
+		94E3B3A71EF466C30024CEE5 /* SensorMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E3B3A61EF466C30024CEE5 /* SensorMapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -493,7 +494,8 @@
 		94AF268A1ED8B5A500DDCCDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94AF26941ED8B76400DDCCDD /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		94C10AA71EE63E610099646E /* RKClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKClient.swift; sourceTree = "<group>"; };
-		94D9969E1ED9E168008DC6A5 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		94D9969E1ED9E168008DC6A5 /* SummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
+		94E3B3A61EF466C30024CEE5 /* SensorMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorMapViewController.swift; sourceTree = "<group>"; };
 		B06FC736305EF801DB99EBDF /* Pods_AirSafe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AirSafe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC690ADBB96116C813A6AB7A /* Pods-AirSafe TFA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AirSafe TFA.release.xcconfig"; path = "Pods/Target Support Files/Pods-AirSafe TFA/Pods-AirSafe TFA.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1027,8 +1029,9 @@
 			isa = PBXGroup;
 			children = (
 				94AF26771ED8B5A500DDCCDD /* Main.storyboard */,
-				94D9969E1ED9E168008DC6A5 /* MainViewController.swift */,
+				94D9969E1ED9E168008DC6A5 /* SummaryViewController.swift */,
 				94AF26731ED8B5A500DDCCDD /* AppDelegate.swift */,
+				94E3B3A61EF466C30024CEE5 /* SensorMapViewController.swift */,
 			);
 			name = "Main Files";
 			sourceTree = "<group>";
@@ -1798,7 +1801,7 @@
 				9426B87D1EF1DECF00FA384A /* RKMathOperations.swift in Sources */,
 				59A16A6E1EF1FB66006DC4F2 /* Secrets.swift in Sources */,
 				948793141EE72FAC00D0CB80 /* ImageTransformations.swift in Sources */,
-				94D9969F1ED9E168008DC6A5 /* MainViewController.swift in Sources */,
+				94D9969F1ED9E168008DC6A5 /* SummaryViewController.swift in Sources */,
 				944B9BEC1EE9D7F20046B12D /* RKSensor.swift in Sources */,
 				944B9BEA1EE9A5D20046B12D /* constants.swift in Sources */,
 				94153DF91EEB4A8E002AD88F /* DateExtension.swift in Sources */,
@@ -1807,6 +1810,7 @@
 				9426B87B1EF1AA7800FA384A /* RKMQTTConnectionManager.swift in Sources */,
 				94C10AA81EE63E610099646E /* RKClient.swift in Sources */,
 				94AF26741ED8B5A500DDCCDD /* AppDelegate.swift in Sources */,
+				94E3B3A71EF466C30024CEE5 /* SensorMapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
