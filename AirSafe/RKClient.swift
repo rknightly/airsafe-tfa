@@ -145,5 +145,15 @@ class RKClient {
         return observationDocs
     }
     
+    /// Disconnect from the server if posssible
+    static func disconnect() {
+        if let server = RKClient.server {
+            do {
+                try server.disconnect()
+            } catch {
+                print(error)
+            }
+        }
+    }
     
 }
