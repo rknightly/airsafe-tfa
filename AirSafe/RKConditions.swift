@@ -74,6 +74,14 @@ class RKConditions {
                            displayColor: color)
     }
     
+    /// A condition denoting that the app has connected and is now waiting for the live data readings.
+    private static var waiting: RKCondition {
+        let color = UIColor.black
+        return RKCondition(displayMessage: "Waiting for live data",
+                           imageName: "connectingIcon",
+                           displayColor: color)
+    }
+    
     
     /// Determines which of the health warning conditions should be displayed to the user based on the concentration of CH4 in the atmosphere
     ///
@@ -93,7 +101,7 @@ class RKConditions {
     }
     
     /// - Returns: The condition that portrays no connection to the mqtt broker
-    public static func getNoConnection() -> RKCondition {
+    public static func getNoConnectionCondition() -> RKCondition {
         return RKConditions.noConnection
     }
     
@@ -105,6 +113,11 @@ class RKConditions {
     /// - Returns: The condition denoting that the app is trying to connect to the mqtt broker
     public static func getConnectingCondition() -> RKCondition {
         return RKConditions.connecting
+    }
+    
+    /// - Returns: The condition denoting that the app has connected and is now waiting for incoming data
+    public static func getWaitingCondition() -> RKCondition {
+        return RKConditions.waiting
     }
     
     public static func getDangerousCondition() -> RKCondition {

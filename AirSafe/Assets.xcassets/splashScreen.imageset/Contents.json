@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "splashImage.png",
+      "filename" : "splashScreen.png",
       "scale" : "1x"
     },
     {

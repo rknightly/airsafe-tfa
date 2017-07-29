@@ -23,6 +23,7 @@ class MainViewController: UIViewController {
     @IBOutlet var statusImageView: UIImageView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
+    var annotationsLoaded = false
     var mqttDataReceived = false
     
     var nearestSensorDistance: Double!
@@ -154,8 +155,21 @@ class MainViewController: UIViewController {
 extension MainViewController: CocoaMQTTDelegate {
     func mqtt(_ mqtt: CocoaMQTT, didConnect host: String, port: Int) {
         print("didConnect \(host):\(port)")
+        stopActivityIndicator()
+        showCondition(condition: RKConditions.getWaitingCondition())
+
+        
         if let topic = currentSensorTopic {
             mqtt.subscribe(topic)
+        }
+        
+        // Load the sensor locations if they couldn't load in the beginning
+        print("Annotations: ", map.annotations.count)
+        if !annotationsLoaded {
+            print("Loading second time")
+            loadSensorLocations()
+        } else {
+            print("Didn't load second time")
         }
         
     }
@@ -163,7 +177,6 @@ extension MainViewController: CocoaMQTTDelegate {
     func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16 ) {
         if (!mqttDataReceived) {
             mqttDataReceived = true
-            stopActivityIndicator()
         }
         handleMessage(msg: message.string!)
     }
@@ -204,6 +217,7 @@ extension MainViewController: CocoaMQTTDelegate {
     
     func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
         _console("mqttDidDisconnect")
+        showCondition(condition: RKConditions.getNoConnectionCondition())
     }
     
     func _console(_ info: String) {
@@ -283,6 +297,18 @@ extension MainViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         self.map.addAnnotation(annotation)
     }
     
+    func isNewSensor(sensor: RKSensor) -> Bool {
+        var newSensor = true
+        for annotation in map.annotations {
+            if let sensorAnnotation = annotation as? RKSensorAnnotation {
+                if sensorAnnotation.sensor.description == sensor.description {
+                    newSensor = false
+                }
+            }
+        }
+        return newSensor
+    }
+    
     /// Get sensor locations from the MongoDB server and create a sensor annotation with each location
     func loadSensorLocations() {
         if let devicesDocs = RKClient.getDevices() {
@@ -298,9 +324,13 @@ extension MainViewController: MKMapViewDelegate, CLLocationManagerDelegate {
                                           mqttTopic: String(device["mqtt_topic"])!,
                                           description: String(device["description"])!,
                                           location: coordinates)
-                    addSensorAnnotation(for: sensor)
+                    if isNewSensor(sensor: sensor) {
+                        addSensorAnnotation(for: sensor)
+                    }
+                    
                 }
             }
+            annotationsLoaded = true
         }
     }
     

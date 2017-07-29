@@ -50,9 +50,13 @@ class RKClient {
     /// Set up the connection if it has not been set up previously
     // TODO: - Remove this and handle any arising issues.
     static func setUpIfNecessary() {
-        if !RKClient.isSetUp {
-            RKClient.setUp()
+        if let server = RKClient.server {
+            if server.isConnected {
+                return
+            }
         }
+        
+        RKClient.setUp()
     }
     
     
